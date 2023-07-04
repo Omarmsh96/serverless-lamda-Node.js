@@ -1,0 +1,52 @@
+service: awsnodeapp
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: 
+        - arn:aws:dynamodb:us-east-1:349919507744:table/product
+
+
+functions:
+  product: 
+    handler: src/product.handler
+    events:
+      - http: 
+          path: /
+          method: post 
+  fetchproducts: 
+    handler: src/index.handler
+    events:
+      - http: 
+          path: /pro
+          method: get 
+  getproduct: 
+    handler: src/getproduct.handler
+    events:
+      - http: 
+          path: /pro/{id}
+          method: get                   
+
+
+
+resources:
+  Resources:
+    ProductTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: product
+        AttributeDefinitions:
+          - AttributeName: productID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: productID
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5

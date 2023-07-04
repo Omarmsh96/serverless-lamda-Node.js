@@ -1,0 +1,13 @@
+{
+  "name": "awsnodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@middy/core": "^4.5.3",
+    "@middy/http-json-body-parser": "^4.5.3",
+    "aws-sdk": "^2.1410.0",
+    "express": "^4.18.2",
+    "serverless-http": "^3.1.1",
+    "uuid": "^9.0.0"
+  }
+}
